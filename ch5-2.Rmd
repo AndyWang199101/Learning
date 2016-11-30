@@ -1,0 +1,387 @@
+---
+title: "Ch5 Eigenvalues and Eigenvectors"
+output:
+  html_document: default
+  pdf_document:
+    highlight: tango
+header-includes:
+- \usepackage{bm}
+- \usepackage{amsmath}
+- \usepackage{eqnarray}
+---
+
+
+# Eigenvalues and eigenvectors
+From this chaper, we'll talk about the most important and profound part of linear algebra. These contents are mostly only suited for finite-dimension linear space.
+
+###### Recall some basic concepts:
+* Operator: $T\in \mathcal{L}(V)$
+* For operators on finite-dimension linear space, the followings are equivaleng:
+	+ $T$ is inverse;
+	+ $T$ is injective;
+	+ $T$ is surjective.
+	
+### 1. Invariant Subspace
+We've known we can study all abstract linear space by a set of its basis:  $({v}_1,v_2,\cdots,v_n)$, i.e.
+$$
+V = \text{span}(v_1,v_2,\cdots,v_n)
+$$
+In this chaper, we begin to use another decomposition of a linear space: (** Direct sum decomposition**)
+$$
+V=U_1\oplus U_2\oplus \cdots \oplus U_m
+$$
+* Recall our definition of direct sum: $\forall v\in V$,there exists a unique decomposition:
+
+$$
+v=u_1+u_2+\cdots+u_n,\ u_i\in U_i
+$$
+
+Basically, this means the only intersection of $U_i$ is $\{0\}$.
+
+* We call $U_i$ is a **subspace** of $V$.
+
+For any operator on  $V$, if we know its behavior on every subspace, we can say we know all about it on $V$.
+$$
+T|_{U_i}
+$$
+
+Firstly, we study the **invariant subspace** of an operator:
+$$
+T|_{U_i}(u)\in U_i
+$$
+It maps a vector belonging to the subspace  $U_i$ to the $U_i$ itself.
+
+Some invariant subspace we've known:
+
+*  $\text{null}T$, $\text{range}T$
+*  $\{0\}$, $V$
+
+However, these all can be trivial.
+
+### 2. Eigenvalues and dim-1 invariant subspace
+
+So we check our first non-trival invariant subspace with dim-1.
+
+We say a subspace is dim-1 if and only if it can be expressed as:
+
+$$
+U=\{ u|u=av:v\in V\}
+$$
+
+If an operator is invariant on the subspace, we can know:
+
+$$
+Tu=\lambda u,\ u\ne 0,\lambda\in F
+$$
+
+This is very important. We call  $\lambda$ is an **eigenvalue** of the operator $T$, and $u$ is its **eigenvector** w.r.t. $\lambda$. It's easy to know a $\lambda$, all vectors in $U$ are the corresponding eigenvectors.
+
+There's another important equivalent definition of eigenvalues:
+
+$$
+Tu=\lambda u \Leftrightarrow  (T-\lambda I)u=0
+$$
+
+So  $\lambda$ is an eigenvalue of $T$, if and only if **$T-\lambda I$ is not injective (subjective,inverse)**.
+
+Now you should be clear about that **eigenvalues** are the specific properties of an operator  $T$ and are independent of the basis, etc..
+
+The next problem you'll ask is whether all operators have an eigenvalue. Unfortunately, the answer is no. We'll proof all operators on complex linear space have at least an eigenvalue, but not the real linear space. The following example is very important.
+
+*Example1*
+$ T(w,z)=(-z,w) $
+
+If there exists an eigenvector  $\lambda$, then:
+
+$$
+T(w,z)=(-z,w)=\lambda(w,z)
+$$
+
+It's not hard to show if  $w,z,\lambda\in \mathbb{R}$, no solutions. But if $w,z,\lambda\in \mathbb{C}$, $\lambda=\pm i$.
+
+### 3. Conclusions about eigenvalues.
+
+#### Th1: All operators on complex linear space (non-zero) have at least one eigenvalue.
+
+**Proof:**
+Consider a complex linear space with  $V$: $\text{dim}V=n$.
+* $(v,Tv,T^2v,\cdots,T^nv)$ must be *linearly depedent*. This means there exists $a_0,\cdots,a_n$:
+
+$$
+a_0v+a_1Tv+a_2T^2v+\cdots+a_nT^nv=0
+$$
+
+* Let  $a_m$ be the largest element which is not equal to zero. $m>1$, otherwise $v=0$.
+* So we can re-express the above equantion as:
+
+$$
+c(T-\lambda_1I) (T-\lambda_2I) \cdots (T-\lambda_mI) v=0
+$$
+
+* This means at least one $T-\lambda_jI$ is not injective.
+
+We finish this proof now.
+
+#### Th2: All operators on real linear space (non-zero) have a dim-1 or dim-2 invariant subspace.
+
+**Proof:**
+This is almost the same as the above, but the equation now should be: $(\text{dim}V\ge 2)$.
+
+$$
+c(T-\lambda_1I)\cdots (T-\lambda_mI) (T^2+\alpha_1T+\beta_iI)\cdots (T^2+\alpha_MT+\beta_MI)v=0
+$$
+
+* If there exists  $T-\lambda_jI$ is not injective, we say $T$ has a dim-1 invariant subspace.
+* If there exists  $T^2+\alpha_jT+\beta_jI$ is not injective, we guess this means $T$ has a dim-2 invariant subspace.
+
+	+ There exists a $u\ne 0$, $T^2u+\alpha_jTu+\beta_ju=0$.
+	+  The dim-2 space is  $\text{span}(u,Tu)$.
+		- We proof it. A typical vector in this space could be written as: $u+aTu$.
+
+$$
+	T(u+aTu)=Tu+aT^2u=Tu-a\alpha_jTu-a\beta_ju\in\text{span}(u,Tu)
+$$
+
+We finish the proof now.
+
+#### Th3: All operators on real linear space with odd dimensions have at least one eigenvalue.
+
+**Proof:**
+
+**Note this could not be done by the previous proof.**
+
+It's easy to show operators on dim-1 real linear space have one eigenvalue. We finish the proof by induction on dimensions.
+
+* Suppose all operators on $\text{dim}=n-2$ real linear subspace have one eigenvalue.
+* For $V$ with $\text{dim}(V)=n$, we have known $T\in \mathcal{L}(V)$ has a dim-1 or dim-2 invariant subspace. 
+	+ dim-1: trivial;
+	+ Focus on dim-2: Let's make a **direct sum decomposition**
+
+$$
+	V=U\oplus W
+$$
+where  $U$ is its dim-2 invariant subspace, $Tu\in U$, and all operators on $W$ have on eigenvalue.
+
+* The next problem is to construct an operator:
+	+ related to  $T|_W$;
+	+  $W$ is its invariant subspace. (So it is defined on $W$ and has an eigenvalue.)
+
+`Projection operator`
+
+`Def:` 
+`Suppose` $V=U\oplus W$, `and` $v=u+w$: $P_{W,U}(v)=w;\ P_{U,W}(v)=u$.
+
+* Now let's consider the following operator $Sw = P_{W,U}(Tw)$:
+
+  (@) This is a linear operator on the $W$ space.
+
+  (@) There exists an eigenvalue $\lambda$ of $S$. 
+
+$$
+Sw = \lambda w
+$$
+
+  (@) We argue this is also an eigenvalue of $T$. We can either search an eigenvector or proof $T-\lambda I$ is not injective. 
+
+Focus on the space $\text{span}(U,w)$, and a typical vector may be $u+aw$:
+
+$$
+\begin{aligned}
+(T-\lambda I)(u+aw) &= Tu + aTw -\lambda u- \lambda aw\\
+ &= Tu -\lambda u + a{({P_{W,U}(Tw) + P_{U,W}(Tw)})} - \lambda a w\\
+ &= Tu + aP_{U,W}(Tu)\\
+ &\in U
+\end{aligned}
+$$
+
+<span style="color:blue">*I think it is worth noting the decomposition of $Tw$ by projection operators.*</span>
+
+Now it's not hard to say $T-\lambda I$ is not injective.
+
+#### Th4: Eigenvectors of different eigenvalues are linearly independent.
+
+**Proof:** Now suppose we have $m$ different eigenvalues $\lambda_1,\cdots,\lambda_m$ with their eigenvectors $v_1,v_2,\cdots,v_m$.
+
+(1) Assume they are linearly dependent: $\exists a_i$ not all be zero.
+
+$$
+a_1v_1 +a_2v_2+\cdots +a_mv_m = 0
+$$
+
+And let $v_k\in \text{span}(v_1,v_2,\cdots,v_{k-1})$, the first $k$ locating in the span of ite previous counterparts.
+
+(2) $T$ maps:
+
+$$
+a_1\lambda v_1 + a_2\lambda v_2 + \cdots + a_{k-1}\lambda v_{k-1} = -a_k\lambda_k v_k = \lambda_k( a_1v_1+a_2v_2+a_{k-1}v_{k-1} )
+$$
+
+(3) Now we know:
+
+$$
+a_1(\lambda_1-\lambda_k) + a_2(\lambda_2-\lambda_k)+\cdots + a_{k-1}(\lambda_{k-1})v_{k-1} = 0
+$$
+
+Cause not all $a$ be zeros, and $a_1,\cdots,a_{k-1}$ are linearly indenpendent, we know there exists some $\lambda_i,i=1,\cdots,k-1$ equal to $\lambda_k$. 
+
+**Corollary: There exists at most $\text{dim}V$ different eigenvalues.** 
+
+### 4. Special Matrices
+
+By using different bases, we can represent a linear operator as different matrices. **One of an important task of linear algebra is to find a special matrix to represent the operator.**
+
+So what does "special" mean? **The first important kind may be that have more zeros.**
+
+#### Upper triangular matrix
+
+$$
+\left(
+\begin{array}{cccc}
+\lambda_1&* &\cdots & *\\
+0 & \lambda_2& \cdots &* \\
+\cdots &\cdots &\ddots &\cdots \\
+0&\cdots & 0 & \lambda_n\\
+\end{array}
+\right)
+$$
+
+**What does an upper triangular matrix mean?** Given a set of bases $(v_1,v_2,\cdots,v_n)$ and an operator $T$< the following is equivalent:
+
+(1). $T$ has an upper triangular matrix under this set of bases;
+
+(2). $Tv_k\in \text{span}(v_1,v_2,\cdots,v_k)$;
+
+(3). $T$ is invariant on the subspace: $\text{span}(v_1,v_2,\cdots,v_k)$.
+
+These may seem obvious.
+
+**Th: For all operators on complex linear space, there exists a set of bases, under which the operator has an upper triangular matrix. **
+
+**Proof:**
+
+We'll proof it using induction.
+
+(1). For $\text{dim}V=1$, it's obvious.
+
+(2). Let's assume this is right for all $\text{dim}V<n$. For $\text{dim}V=n$,
+
+**This need to be done carefully, cause we don't know whether $T$ has a $<n$ invariant subspace. (This is true if we finish this theorem.)**
+
+**This theroem is not true for real linear space, cause it may even not have an eigenvalue.(Every $>2$ linear space's operator with an upper triangular matrix has at least one eigenvalue.) So this may be important for our proof.**
+
+Suppose $\lambda$ is an eigenvalue of $T$, and then we need to construct a related linear space with dimensions $<n$. This is obvious, cause $T-\lambda I$ is not injective, so is also not surjective.
+
+$$
+  U=\text{range}(T-\lambda I)
+$$
+
+* This subspace is an invariant subspace of $T$. $Tu=Tu-\lambda u+\lambda u=(T-\lambda I)u+\lambda U\in U$.
+* Let's consider a set of bases of $U$: $(u_1,u_2,\cdots,u_m)$, which makes $T|_U$ has an upper triangular matrix.
+* Extend this set to a set of bases of $V$: $(u_1,u_2,\cdots,u_m,v_1,v_2,\cdots,v_{n-m})$.
+$$
+Tv_k = (T-\lambda I)v_k + \lambda v_k \in \text{span}(u_1,u_2,\cdots,u_m,v_k)
+$$
+
+Now we finish this proof.
+
+**Th: If an operator has an upper triangular matrix, we can know: 
+(1). $T$ is inverse if and only if all diagonal elemnts are non-zeros.
+(2). These diagonal elements are $T$'s all eigenvalues.**
+
+**Proof:**
+
+(1). If some elemnt $\lambda_k=0$, we can know $Tv_k=\text{span}(v_1,v_2,\cdots,v_{k-1})$. For any element in $v\in\text{span}(v_1,v_2,\cdots,v_k)$,
+
+$$
+Tv\in\text{span}(v_1,v_2,\cdots,v_{k-1})
+$$
+
+this means $T$ is not injective, and not inverse.
+
+In the other hand, we suppose $T$ is not inverse. $T$ is not injective, $\exists v\ne 0, TV=0$, and we express $v$ as:
+
+$$
+v=a_1v_1+\cdots+a_kv_k, a_k\ne 0
+$$
+
+Then $Tv=a_1Tv_1+\cdots +a_{k-1}Tv_{k-1} + a_kTv_k$. We've known for all $i\le k-1,Tv_i\in\text{span}(v_1,\cdots,v_{k-1})$, $a_k\ne 0$,
+
+$$
+Tv_k\in \text{span}(v_1,v_2,\cdots,v_{k-1})
+$$
+
+So $\lambda_k=0$.
+
+(2). Notive the matrix of $T-\lambda I$ is:
+
+$$
+\left(
+\begin{array}{cccc}
+\lambda_1-\lambda&* &\cdots & *\\
+0 & \lambda_2-\lambda& \cdots &* \\
+\cdots &\cdots &\ddots &\cdots \\
+0&\cdots & 0 & \lambda_n-\lambda\\
+\end{array}
+\right)
+$$
+
+So $T-\lambda I$ is not injective if and only if some $\lambda_i=\lambda$.
+
+#### Diagonal matrix
+
+$$
+\left(
+\begin{array}{cccc}
+\lambda_1&0 &\cdots & 0\\
+0 & \lambda_2& \cdots &0 \\
+\cdots &\cdots &\ddots &\cdots \\
+0&\cdots & 0 & \lambda_n\\
+\end{array}
+\right)
+$$
+
+This is obviously a more special matrix. However, even for operators on complex linear space, it is not guaranteed for it to have a diagonal matrix.
+
+If an operator has a diagonal matrix, we can know:
+
+(1). its diagonal elements are its eigenvalues;
+
+(2). it is inverse if and only if all its diagonal elements are non-zeros.
+
+Cause we have known different eigenvalues' eigenvectors are linearly independent, **If $T$ has $n$ different eigenvalues, it has a diagonal matrix.** Note the other direction is not right. Consider $T(z_1,z_2,z_3)=(2z_1,2z_2,3z_3)$.
+
+The followings are equivalent: $T\in\mathcal{L}(V)$, suppose all of $T$'s eigenvalues are $\lambda_1,\lambda_2,\cdots,\lambda_m$
+
+(1). $T$ has a diagonal matrix;
+
+(2). $V$ has a base composed of $T$'s eigenvectors.
+
+(3). $V$ can be decomposed as direct sum of $n$ dim-1 invariant subspace of $T$:
+
+$$
+V = U_1\oplus U_2\oplus \cdots \oplus U_n
+$$
+
+(4). $V= \text{null}(T-\lambda_1I)\oplus \text{null}(T-\lambda_2I)\oplus\cdots\oplus\text{null}(T-\lambda_m I)$.
+
+(5). $\text{dim}(V) = \text{dim}\text{ null}(T-\lambda_1I)+\text{dim null}(T-\lambda_2I)+\cdots+\text{dim null}(T-\lambda_mI)$
+
+**Proof:**
+
+(1)-(2) ;
+
+(1)-(3) ;
+
+(2)->(4);
+
+(4)->(5);
+
+(5)->(2): Obtain bases of $\text{null}(T-\lambda_1I),\text{null}(T-\lambda_2I),\cdots,\text{null}(T-\lambda_mI)$: $(v_1,v_2,\cdots,v_n)$, they are all eigenvectors, and $n=\text{dim}V$. Let's proof this is a set of bases of $V$.
+
+
+* Eigenvectors from different eigenvalues are linearly independent.
+
+* From the same eiugenvalue, cause they form a basis of $\text{null}(T-\lambda_jI)$
+
+
+
